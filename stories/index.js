@@ -11,6 +11,8 @@ storiesOf("Button", module)
   .addParameters({
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
   })
+  
+  // Render different kind of buttons
   .add("Base", () => <Button>Base</Button>)
   .add("Confirm", () => <Button confirm>Confirm</Button>)
   .add("Danger", () => <Button danger>Cancel</Button>)
