@@ -9,13 +9,14 @@ export default function InterviewerList(props) {
 
     return (
       <InterviewerListItem 
+      id={singleInterviewer.id}
       name={singleInterviewer.name}
       avatar={singleInterviewer.avatar}
-      selected={singleInterviewer.id === props.value}
-      setInterviewer={() => {props.setDay(singleInterviewer.id)}} //?
+      selected={singleInterviewer.id === props.singleInterviewer}
+      setInterviewer={(event) => {props.setInterviewer(singleInterviewer.id)}} //?
 
       />
-    )
+    );
   });
     return (
       <section className="interviewers">
