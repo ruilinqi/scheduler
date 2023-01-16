@@ -8,12 +8,21 @@ export default function useVisualMode(initial) {
 
   // Require the addition of a replace argument on the transition function. 
   // When replace is true then set the history to reflect that we are replacing the current mode.
-  const transition(mode, replace = false) {
-
+  const transition = (nextMode, replace = false) => {
+    if(replace) {
+      history.pop();
+    }
+    history.push(nextMode);
+    setHistory(history);
+    return setMode(nextMode);
   }
-  const back() {
-
-  }
+  const back = () => {
+    if (history.length > 1) {
+      history.pop();
+      setHistory(history);
+      return setMode(history[history.length - 1]);  
+    }
+  };
 
   return { mode, transition, back };
 }

@@ -4,6 +4,8 @@ import "components/Appointment/styles.scss";
 import Show from "./Show";
 import Header from "./Header";
 import Empty from "./Empty";
+import Form from "./Form";
+
 import useVisualMode from "hooks/useVisualMode";
 
 
@@ -23,7 +25,8 @@ export default function Appointment(props) {
 
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === CREATE && (
-        <Form interviewers={props.interviewers}
+        <Form 
+        interviewers={props.interviewers}
         onCancel={() => transition(EMPTY)}
         />
       )}
