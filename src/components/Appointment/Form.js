@@ -6,6 +6,7 @@ export default function Form(props) {
   // It evaluates to props.student if it is truthy. If props.student is undefined, then use empty string ""
   const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const [error, setError] = useState("");
 
   const reset = () => {
     setStudent("");
@@ -15,6 +16,24 @@ export default function Form(props) {
     reset();
     props.onCancel();
   }
+
+  const validate = () => {
+    if (!student) {
+      setError("Student name cannot be empty");
+      return;
+    }
+    if (!interviewer) {
+      setError("Please select an interviewer");
+      return;
+    }
+    setError("");
+    props.onSave(student, interviewer);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    validate();
+  };
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -44,7 +63,7 @@ export default function Form(props) {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave}>Save</Button>
+          <Button confirm onClick={handleSubmit}>Save</Button>
         </section>
       </section>
     </main>

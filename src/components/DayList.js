@@ -3,9 +3,10 @@ import "./DayList.scss";
 import DayListItem from "./DayListItem";
 
 export default function DayList(props) {
-  const days = props.days; // 0 - 2
+  const daysArray = props.days; // 0 - 2
+  console.log("days:", daysArray);
   // Map over the days array to return <DayListItem> components as children
-  const DayListItems = days.map((day) => {
+  const DayListItems = daysArray.map((day) => {
     return (
       <DayListItem
       key={day.id}

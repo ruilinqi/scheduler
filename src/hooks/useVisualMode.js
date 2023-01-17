@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 // Build a custom Hook that allows us to manage the visual mode of any component. 
 // We can define the modes as constants in our component and then use the Hook to transition forward and back.
