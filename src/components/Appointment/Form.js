@@ -19,7 +19,7 @@ export default function Form(props) {
 
   const validate = () => {
     if (!student) {
-      setError("Student name cannot be empty");
+      setError("Student name cannot be blank");
       return;
     }
     if (!interviewer) {
@@ -41,17 +41,16 @@ export default function Form(props) {
         {/* when the user presses the key enter, the event handler captures the event and stops it using the method */}
         <form autoComplete="off" onSubmit={event => event.preventDefault()}> 
           <input
-            value={student}
-            onChange={(event) => setStudent(event.target.value)}
             className="appointment__create-input text--semi-bold"
-            name="name"
+            name="name" // a standard attribute of the HTML <input> tag
             type="text"
             placeholder="Enter Student Name"
-            /*
-              This must be a controlled component
-              your code goes here
-            */
-          />
+            value={student}
+            onChange={(event) => setStudent(event.target.value)}
+            data-testid="student-name-input"
+            />
+            <section className="appointment__validation">{error}</section>
+
         </form>
         <InterviewerList 
           value = {interviewer}
