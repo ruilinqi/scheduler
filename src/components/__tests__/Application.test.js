@@ -6,19 +6,42 @@ import { render, cleanup, waitForElement, fireEvent } from "@testing-library/rea
 import Application from "components/Application";
 
 afterEach(cleanup);
+describe("Appication", () => {
 
-it("changes the schedule when a new day is selected", async () => {
-  // render(<Application />);
-  const { getByText } = render(<Application />);
+  it("changes the schedule when a new day is selected", async () => {
+    const { getByText } = render(<Application />);
+  
+    // Promise chain way
+    // return waitForElement(() => getByText("Monday")).then(() => {
+    //   fireEvent.click(getByText("Tuesday")); // Fire the click event on "Tuesday"
+    //   expect(getByText("Leopold Silvers")).toBeInTheDocument(); // Verify the text is in the document
+    // });
+  
+    // async/await way
+    await waitForElement(() => getByText("Monday"));
+    fireEvent.click(getByText("Tuesday"));
+    expect(getByText("Leopold Silvers")).toBeInTheDocument();
+  });
 
-  // Promise chain way
-  // return waitForElement(() => getByText("Monday")).then(() => {
-  //   fireEvent.click(getByText("Tuesday")); // Fire the click event on "Tuesday"
-  //   expect(getByText("Leopold Silvers")).toBeInTheDocument(); // Verify the text is in the document
-  // });
 
-  // async/await way
-  await waitForElement(() => getByText("Monday"));
-  fireEvent.click(getByText("Tuesday"));
-  expect(getByText("Leopold Silvers")).toBeInTheDocument();
-});
+  it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
+    const { container } = render(<Application />);
+
+    await waitForElement(() => getByText(container, "Archie Cohen"));
+
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments[0];
+
+    fireEvent.click(getByAltText(appointment, "Add"));
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(appointment, "Save"));
+
+    console.log(prettyDOM(appointment));
+  });
+
+})
