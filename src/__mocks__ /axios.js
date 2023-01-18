@@ -55,6 +55,9 @@ const fixtures = {
 
 // The mocked axios module we can return predictable data when we call the axios.get() function
 export default {
+  // code axios.defaults.baseURL = "http://localhost:8001"; to set a default base url for axios.
+  defaults: { baseURL: "" },
+
   get: jest.fn(url => {
     if (url === "/api/days") {
       return Promise.resolve({
