@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import InterviewerListItem from "./InterviewerListItem";
-// import classNames from "classnames";
 import "components/InterviewerList.scss";
 
 function InterviewerList(props) {
@@ -13,8 +12,8 @@ function InterviewerList(props) {
       key={singleInterviewer.id}
       name={singleInterviewer.name}
       avatar={singleInterviewer.avatar}
-      selected={singleInterviewer.id === props.value} //singleInterviewer.id === props.singleInterviewer
-      setInterviewer={() => {props.onChange(singleInterviewer.id)}} //?
+      selected={singleInterviewer.id === props.value}
+      setInterviewer={() => {props.onChange(singleInterviewer.id)}}
 
       />
     );

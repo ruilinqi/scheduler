@@ -12,8 +12,7 @@ test("useVisualMode should initialize with default value", () => {
   expect(result.current.mode).toBe(FIRST);
 });
 
-// This test will initialize the mode to FIRST, then transition to SECOND and then check 
-//to see what the current value of mode is
+
 test("useVisualMode should transition to another mode", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 
@@ -30,11 +29,11 @@ test("useVisualMode should return to previous mode", () => {
   act(() => result.current.transition(THIRD));
   expect(result.current.mode).toBe(THIRD);
 
-  // the test will attempt to pop back to the most recent mode, which should be SECOND.
+  // Attempt to pop back to the most recent mode SECOND.
   act(() => result.current.back());
   expect(result.current.mode).toBe(SECOND);
 
-  // After another back, we should find ourselves back at the FIRST mode.
+  // After another back, find ourselves back at the FIRST mode.
   act(() => result.current.back());
   expect(result.current.mode).toBe(FIRST);
 });
@@ -47,7 +46,7 @@ test("useVisualMode should not return to previous mode if already at initial", (
   expect(result.current.mode).toBe(FIRST);
 });
 
-//replace
+// Replace
 test("useVisualMode should replace the current mode", () => {
   const { result } = renderHook(() => useVisualMode(FIRST));
 

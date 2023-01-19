@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React from "react";
 
 import "components/Application.scss";
 import DayList from "./DayList";
@@ -7,8 +6,6 @@ import Appointment from "./Appointment";
 
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "helpers/selectors";
 import useApplicationData from "hooks/useApplicationData";
-// import useVisualMode from "hooks/useVisualMode";
-// import InterviewerList from "./InterviewerList";
 
 export default function Application(props) {
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
@@ -16,11 +13,9 @@ export default function Application(props) {
   // set appointments and interviewers
   const dailyAppointments = getAppointmentsForDay(state, state.day);
   const dailyInterviewers = getInterviewersForDay(state, state.day); 
-  // console.log("dailyinterviewers", dailyinterviewers);
 
   const schedule = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
-    //console.log("interview:", interview);
     return (
       <Appointment
       key={appointment.id} 
@@ -46,8 +41,8 @@ export default function Application(props) {
         <nav className="sidebar__menu">
         <DayList
           days={state.days}
-          value={state.day} //day
-          onChange={setDay} //setDay
+          value={state.day}
+          onChange={setDay}
         />
         </nav>
         <img

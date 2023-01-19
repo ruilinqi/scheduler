@@ -3,8 +3,8 @@ import "./DayList.scss";
 import DayListItem from "./DayListItem";
 
 export default function DayList(props) {
-  const daysArray = props.days; // 0 - 2
-  console.log("days:", daysArray);
+  const daysArray = props.days;
+  
   // Map over the days array to return <DayListItem> components as children
   const DayListItems = daysArray.map((day) => {
     return (
@@ -13,7 +13,7 @@ export default function DayList(props) {
       name={day.name}
       spots={day.spots}
       selected={day.name === props.value}
-      setDay={props.onChange} //setDay={(event) => props.setDay(day.id)} 
+      setDay={props.onChange}
       />
     )
   });

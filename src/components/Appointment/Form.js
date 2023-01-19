@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // import useState hook
+import React, { useState } from 'react';
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
@@ -39,11 +39,10 @@ export default function Form(props) {
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        {/* when the user presses the key enter, the event handler captures the event and stops it using the method */}
         <form autoComplete="off" onSubmit={event => event.preventDefault()}> 
           <input
             className="appointment__create-input text--semi-bold"
-            name="name" // a standard attribute of the HTML <input> tag
+            name="name"
             type="text"
             placeholder="Enter Student Name"
             value={student}

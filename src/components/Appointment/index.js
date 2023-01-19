@@ -24,11 +24,11 @@ export default function Appointment(props) {
   const ERROR_DELETE = "ERROR_DELETE";
 
   const { mode, transition } = useVisualMode(
-    // When props.interview contains a value, then we want to pass useVisualMode the SHOW mode, if it is empty then we should pass EMPTY.
+    // When props.interview contains a value, then pass useVisualMode the SHOW mode; if it is empty then we should pass EMPTY.
     props.interview ? SHOW : EMPTY
   );
 
-  // Effrct of interview
+  // Effect of interview
   useEffect(() => {
 
     if (props.interview && mode === EMPTY) {
@@ -53,7 +53,6 @@ export default function Appointment(props) {
     })
     .catch((error) => {
       transition(ERROR_SAVE, true);
-      console.log("Error: ", error);
     });
 
   };
@@ -68,7 +67,6 @@ export default function Appointment(props) {
       })
       .catch((error) => {
         transition(ERROR_DELETE, true);
-        console.log("Error: ", error);
       });
   };
 
