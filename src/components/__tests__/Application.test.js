@@ -27,7 +27,7 @@ describe("Application", () => {
 
 
   it("loads data, books an interview and reduces the spots remaining for the first day by 1", async () => {
-    const { container, debug } = render(<Application />);
+    const { container } = render(<Application />);
     console.log("container:", prettyDOM(container));
 
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -122,6 +122,8 @@ describe("Application", () => {
 
   // shows the save error when failing to save an appointment
   it("shows the save error when failing to save an appointment", async () => {
+    
+
     axios.put.mockRejectedValueOnce();
 
     const { container } = render(<Application />);
@@ -144,6 +146,7 @@ describe("Application", () => {
 
   // shows the delete error when failing to delete an existing appointment
   it("shows the delete error when failing to delete an existing appointment", async () => {
+    
     axios.delete.mockRejectedValueOnce();//error
 
     const { container } = render(<Application />);
