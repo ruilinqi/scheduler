@@ -3,7 +3,7 @@ export function getAppointmentsForDay(state, day) {
   let selectedAppointments = [];
   const appointmentArray = [];
   
-  console.log("getAppointmentsForDay - daysArray:", daysArray);
+  //console.log("getAppointmentsForDay - daysArray:", daysArray);
   daysArray.forEach(dayObject => {
     if (dayObject.name === day) {
       selectedAppointments = dayObject.appointments;
@@ -14,7 +14,7 @@ export function getAppointmentsForDay(state, day) {
   selectedAppointments.forEach((id) => {
     appointmentArray.push(state.appointments[id]);
   });
-  console.log("appointmentArray", appointmentArray);
+  //console.log("appointmentArray", appointmentArray);
 
   return appointmentArray;
 }
@@ -39,14 +39,14 @@ export function getInterviewersForDay (state, day) {
   let selectedInterviewers = [];
   const InterviewersArray = [];
   
-  console.log("getInterviewersForDay daysArray:", daysArray);
+  //console.log("getInterviewersForDay daysArray:", daysArray);
 
   daysArray.forEach(dayObject => {
     if (dayObject.name === day) {
       selectedInterviewers = dayObject.interviewers;
     }
   });
-  console.log("getInterviewersForDay selectedInterviewers:", selectedInterviewers);
+  //console.log("getInterviewersForDay selectedInterviewers:", selectedInterviewers);
 
   selectedInterviewers.forEach((id) => {
     InterviewersArray.push(state.interviewers[id]);

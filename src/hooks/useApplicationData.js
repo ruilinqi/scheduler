@@ -31,6 +31,32 @@ export default function useApplicationData() {
       .catch((error) => console.log(error));
   }, []);
 
+  const setSpots = (day, num) => {
+    let dayName = day;
+    let daysArray = [...state.days];
+  
+    for (let i = 0; i < daysArray.length; i++) {
+      if (daysArray[i].name === dayName) {
+        daysArray[i].spots += num;
+      }
+    }
+  
+    return daysArray;
+  }
+
+  const updatedDays = (appointments, appointmentId) => {
+    const apptDay = state.days.find((day) =>
+      day.appointments.includes(appointmentId)
+    );
+  
+    const spots = apptDay.appointments.filter(
+      (id) => appointments[id].interview === null
+    ).length;
+  
+    return state.days.map((x) =>
+      x.appointments.includes(appointmentId) ? { ...x, spots } : x
+    );
+  };
 
   // Book interview
   // Makes an HTTP request and updates the local state
@@ -48,7 +74,8 @@ export default function useApplicationData() {
     };
     setState({
       ...state,
-      appointments
+      appointments,
+      days: updatedDays(appointments, id)
     });
     console.log("appointment:", appointment, "appointments:", appointments)
     
@@ -71,7 +98,8 @@ export default function useApplicationData() {
     };
     setState({
       ...state,
-      appointments
+      appointments,
+      days: updatedDays(appointments, id)
     });
    
     console.log("appointment:", appointment, "appointments:", appointments)
