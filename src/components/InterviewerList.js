@@ -10,7 +10,7 @@ function InterviewerList(props) {
 
     return (
       <InterviewerListItem 
-      id={singleInterviewer.id}
+      key={singleInterviewer.id}
       name={singleInterviewer.name}
       avatar={singleInterviewer.avatar}
       selected={singleInterviewer.id === props.value} //singleInterviewer.id === props.singleInterviewer

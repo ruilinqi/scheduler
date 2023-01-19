@@ -13,6 +13,7 @@ export default function Form(props) {
     setInterviewer(null);
   }
   const cancel = () => {
+    setError("");
     reset();
     props.onCancel();
   }
@@ -30,7 +31,7 @@ export default function Form(props) {
     props.onSave(student, interviewer);
   };
 
-  const handleSubmit = (event) => {
+  const submit = (event) => {
     event.preventDefault();
     validate();
   };
@@ -50,19 +51,18 @@ export default function Form(props) {
             data-testid="student-name-input"
             />
             <section className="appointment__validation">{error}</section>
-
         </form>
+
         <InterviewerList 
           value = {interviewer}
           interviewers={props.interviewers}
           onChange={setInterviewer}
-          /* your code goes here */
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={handleSubmit}>Save</Button>
+          <Button confirm onClick={submit}>Save</Button>
         </section>
       </section>
     </main>
