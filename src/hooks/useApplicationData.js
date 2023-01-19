@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
@@ -33,12 +33,12 @@ export default function useApplicationData() {
 
   // Update spots
   const updatedSpots = (appointments, appointmentId) => {
-    const apptDay = state.days.find((day) =>
+    const appointmentsDay = state.days.find((day) =>
       day.appointments.includes(appointmentId)
     );
   
     // Calculate new spots
-    const spots = apptDay.appointments.filter(
+    const spots = appointmentsDay.appointments.filter(
       (id) => appointments[id].interview === null
     ).length;
   
@@ -48,10 +48,8 @@ export default function useApplicationData() {
     );
   };
 
-  // Book interview
-  // Makes an HTTP request and updates the local state
+  // Book interview - Makes an HTTP request and updates the local state
   function bookInterview(id, interview) {
-    console.log(id, interview);
     
     const appointment = {
       ...state.appointments[id],
@@ -62,19 +60,19 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments,
-      days: updatedSpots(appointments, id)
-    });
-    console.log("appointment:", appointment, "appointments:", appointments)
-    
+      
     return axios.put(`/api/appointments/${id}`, {'interview': interview})
+    .then(() => {
+      setState({
+        ...state,
+        appointments,
+        days: updatedSpots(appointments, id)
+      }) 
+    })
   };
 
-  // Cancel interview
+  // Cancel interview - Makes an HTTP request and updates the local state
   function cancelInterview(id, interview) {
-    console.log(id, interview);
     
     const appointment = {
       ...state.appointments[id],
@@ -85,13 +83,10 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     };
-    
-   
-    console.log("appointment:", appointment, "appointments:", appointments)
-    
+        
     return axios
     .delete(`/api/appointments/${id}`)
-    .then((response) => {
+    .then(() => {
       setState({
         ...state,
         appointments,
