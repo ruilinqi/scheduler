@@ -31,28 +31,18 @@ export default function useApplicationData() {
       .catch((error) => console.log(error));
   }, []);
 
-  const setSpots = (day, num) => {
-    let dayName = day;
-    let daysArray = [...state.days];
-  
-    for (let i = 0; i < daysArray.length; i++) {
-      if (daysArray[i].name === dayName) {
-        daysArray[i].spots += num;
-      }
-    }
-  
-    return daysArray;
-  }
-
-  const updatedDays = (appointments, appointmentId) => {
+  // Update spots
+  const updatedSpots = (appointments, appointmentId) => {
     const apptDay = state.days.find((day) =>
       day.appointments.includes(appointmentId)
     );
   
+    // Calculate new spots
     const spots = apptDay.appointments.filter(
       (id) => appointments[id].interview === null
     ).length;
   
+    // updates ...x, spots; else x
     return state.days.map((x) =>
       x.appointments.includes(appointmentId) ? { ...x, spots } : x
     );
@@ -75,7 +65,7 @@ export default function useApplicationData() {
     setState({
       ...state,
       appointments,
-      days: updatedDays(appointments, id)
+      days: updatedSpots(appointments, id)
     });
     console.log("appointment:", appointment, "appointments:", appointments)
     
@@ -83,28 +73,31 @@ export default function useApplicationData() {
   };
 
   // Cancel interview
-  // 
   function cancelInterview(id, interview) {
     console.log(id, interview);
     
     const appointment = {
       ...state.appointments[id],
-      interview: {...interview}
+      interview: null
     };
 
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
-    setState({
-      ...state,
-      appointments,
-      days: updatedDays(appointments, id)
-    });
+    
    
     console.log("appointment:", appointment, "appointments:", appointments)
     
-    return axios.delete(`/api/appointments/${id}`, {'interview': interview})
+    return axios
+    .delete(`/api/appointments/${id}`)
+    .then((response) => {
+      setState({
+        ...state,
+        appointments,
+        days: updatedSpots(appointments, id)
+      });
+    })
   };
 
   return { state, setDay, bookInterview, cancelInterview };
