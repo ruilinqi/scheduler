@@ -13,6 +13,7 @@ import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
 
 import Appointment from "components/Appointment/index.js";
+import Header from "components/Appointment/Header";
 import Empty from "components/Appointment/Empty";
 import Show from "components/Appointment/Show";
 import Confirm from "components/Appointment/Confirm";
@@ -75,13 +76,13 @@ storiesOf("DayList", module)
     backgrounds: [{ name: "dark", value: "#222f3e", default: true }],
   })
   .add("Monday", () => (
-    <DayList days={days} day={"Monday"} onChange={action("setDay")} />
+    <DayList days={days} value={"Monday"} onChange={action("setDay")} />
   ))
   .add("Tuesday", () => (
-    <DayList days={days} day={"Tuesday"} onChange={action("setDay")} />
+    <DayList days={days} value={"Tuesday"} onChange={action("setDay")} />
   ))
   .add("Wednesday", () => (
-      <DayList days={days} day={"Wednesday"} onChange={action("setDay")} />
+    <DayList days={days} value={"Wednesday"} onChange={action("setDay")} />
   ));
 
   // InterviewerListItem
@@ -140,7 +141,7 @@ storiesOf("InterviewerList", module)
   .add("Selected", () => (
     <InterviewerList
       interviewers={interviewers}
-      interviewer={3}
+      value={3}
     />
   ))
   .add("Clickable", () => (
@@ -163,7 +164,7 @@ storiesOf("Appointment", module)
   .add("Show", () => (
     <Show 
       student={"Lydia Miller-Jones"} 
-      interviewer={interviewer[0]} 
+      interviewer={interviewer} 
       onEdit={action("onEdit")} 
       onDelete={action("onDelete")} 
     />
@@ -187,7 +188,7 @@ storiesOf("Appointment", module)
 
   .add("Edit", () => (
     <Form 
-      student={"Raylene"}
+      student={"Ruilin Qi"}
       interviewer={1}
       interviewers={interviewers}
       onSave={action("onSave")} 
